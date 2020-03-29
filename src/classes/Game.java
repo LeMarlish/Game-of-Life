@@ -137,12 +137,10 @@ public class Game extends JPanel implements MouseListener, MouseMotionListener {
 				// Look for neighbour cells
 				for (int i = x - 1; i <= x + 1; i++) {
 					for (int j = y - 1; j <= y + 1; j++) {
-						// Catch out of bounds indexes in the array
-						if ((i >= 0 && i < SIZE_X) && (j >= 0 && j < SIZE_Y)) {
-							// Makes sure it's not checking the position of the cell itself
-							if((((i != x && j == y) || (i == x && j != y)) || (i != x && j != y))) {
+						// 1. Catch out of bounds indexes in the array
+						// 2. Makes sure it's not checking the position of the cell itself
+						if ((i >= 0 && i < SIZE_X) && (j >= 0 && j < SIZE_Y) && ((((i != x && j == y) || (i == x && j != y)) || (i != x && j != y)))) {
 								neighbours += cell[i][j].getCellStatus();
-							}
 						}
 					}
 				}
@@ -160,7 +158,6 @@ public class Game extends JPanel implements MouseListener, MouseMotionListener {
 		for (int i = 0; i < SIZE_X; i++) {
 			for (int j = 0; j < SIZE_Y; j++) {
 				cell[i][j].setCellStatus(cellCache[i][j].getCellStatus());
-				//cellCache[i][j].setCellStatus(0);
 			}
 		}
 
@@ -172,12 +169,13 @@ public class Game extends JPanel implements MouseListener, MouseMotionListener {
 	public void paint(Graphics g) {
 		Color color = new Color(238, 238, 238);
 		g.setColor(color);
+		// Paint background
 		for (int i = 0; i < SIZE_X; i++) {
 			for (int j = 0; j < SIZE_Y; j++) {
 				g.fillRect(i * SIZE, j * SIZE, SIZE, SIZE);
 			}
 		}
-
+		// Paint living cells
 		g.setColor(Color.BLACK);
 		for (int i = 0; i < SIZE_X; i++) {
 			for (int j = 0; j < SIZE_Y; j++) {
@@ -186,7 +184,7 @@ public class Game extends JPanel implements MouseListener, MouseMotionListener {
 				}
 			}
 		}
-
+		// Paint grid
 		g.setColor(Color.GRAY);
 		for (int i = 0; i < SIZE_X; i++) {
 			for (int j = 0; j < SIZE_Y; j++) {
@@ -207,9 +205,10 @@ public class Game extends JPanel implements MouseListener, MouseMotionListener {
 
 	}
 
+	// The methods below are not used.
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// clickedCell(e);
+
 
 	}
 
@@ -221,18 +220,17 @@ public class Game extends JPanel implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// clickedCell(e);
+
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
